@@ -5,8 +5,8 @@
 
 # Site and directory configuration
 site_name: Klipper documentation
-repo_url: https://github.com/Klipper3d/klipper
-repo_name: Klipper3d/klipper
+repo_url: https://github.com/MakerPi-3D-Firmware/klipper
+repo_name: MakerPi-3D-Firmware/klipper
 edit_uri: blob/master/docs/
 use_directory_urls: False
 docs_dir: '../'
