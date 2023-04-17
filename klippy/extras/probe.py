@@ -296,7 +296,7 @@ class PrinterProbe:
         configfile = self.printer.lookup_object('configfile')
         configfile.set(self.name, 'e_x_offset', "%.3f" % (self.gcode_move.e1_offset_position[0],))
         configfile.set(self.name, 'e_y_offset', "%.3f" % (self.gcode_move.e1_offset_position[1],))
-        configfile.set(self.name, 'e_z_offset', "%.3f" % (self.gcode_move.e1_offset_position[2],))
+#        configfile.set(self.name, 'e_z_offset', "%.3f" % (self.gcode_move.e1_offset_position[2],))
     cmd_E_OFFSET_APPLY_PROBE_help = "Adjust the probe's z_offset"
 
 # Endstop wrapper that enables probe specific features
@@ -308,9 +308,6 @@ class ProbeEndstopWrapper:
         self.gcode_move.e1_offset_position[0] = config.getfloat('e_x_offset', 0.)
         self.gcode_move.e1_offset_position[1] = config.getfloat('e_y_offset', 0.)
         self.gcode_move.e1_offset_position[2] = config.getfloat('e_z_offset', 0.)
-        for pos, axis in enumerate('XYZ'):
-            self.gcode_move.base_position[pos] = self.gcode_move.e1_offset_position[pos]
-            self.gcode_move.homing_position[pos] = self.gcode_move.e1_offset_position[pos]
         self.stow_on_each_sample = config.getboolean(
             'deactivate_on_each_sample', True)
         gcode_macro = self.printer.load_object(config, 'gcode_macro')

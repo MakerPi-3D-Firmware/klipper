@@ -222,10 +222,6 @@ class GCodeMove:
             delta = offset - self.homing_position[pos]
             move_delta[pos] = delta
             self.e1_offset_position[pos] += delta
-        offset_pos = " ".join(["%s:%.6f"  % (a, v)
-                        for a, v in zip("XYZ", self.e1_offset_position)])
-        gcmd.respond_info("offset_pos: %s\n"
-                          % (offset_pos))
     cmd_SAVE_GCODE_STATE_help = "Save G-Code coordinate state"
     def cmd_SAVE_GCODE_STATE(self, gcmd):
         state_name = gcmd.get('NAME', 'default')

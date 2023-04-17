@@ -300,7 +300,7 @@ class PrinterExtruder:
             gcmd.respond_info("Extruder %s already active" % (self.name,))
             return
         gcmd.respond_info("Activating extruder %s" % (self.name,))
-        for pos, axis in enumerate('XYZ'):
+        for pos, axis in enumerate('XY'):
             self.gcode_move.base_position[pos] = self.gcode_move.e1_offset_position[pos]
             self.gcode_move.homing_position[pos] = self.gcode_move.e1_offset_position[pos]
         toolhead.flush_step_generation()
