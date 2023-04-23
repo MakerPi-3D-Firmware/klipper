@@ -297,6 +297,12 @@ class PrinterProbe:
         configfile.set(self.name, 'e_x_offset', "%.3f" % (self.gcode_move.e1_offset_position[0],))
         configfile.set(self.name, 'e_y_offset', "%.3f" % (self.gcode_move.e1_offset_position[1],))
 #        configfile.set(self.name, 'e_z_offset', "%.3f" % (self.gcode_move.e1_offset_position[2],))
+        offset = self.gcode_move.get_status()['homing_origin'].z
+        if offset == 0:
+            self.gcode.respond_info("Nothing to do: Z Offset is 0")
+        else:
+            new_calibrate = self.z_offset - offset
+            configfile.set(self.name, 'z_offset', "%.3f" % (new_calibrate,))
     cmd_E_OFFSET_APPLY_PROBE_help = "Adjust the probe's z_offset"
 
 # Endstop wrapper that enables probe specific features
