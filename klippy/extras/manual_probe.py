@@ -43,7 +43,8 @@ class ManualProbe:
     def z_endstop_finalize(self, kin_pos):
         if kin_pos is None:
             return
-        z_pos = self.z_position_endstop - kin_pos[2]
+#        z_pos = self.z_position_endstop - kin_pos[2]
+        z_pos = self.z_position_endstop
         self.gcode.respond_info(
             "stepper_z: position_endstop: %.3f\n"
             "The SAVE_CONFIG command will update the printer config file\n"
