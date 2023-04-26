@@ -126,6 +126,8 @@ class BedMesh:
         gcode_move.set_move_transform(self)
         # initialize status dict
         self.update_status()
+    def get_probe_zvals(self):
+        return self.pmgr.get_zvals
     def handle_connect(self):
         self.toolhead = self.printer.lookup_object('toolhead')
         self.bmc.print_generated_points(logging.info)
@@ -1122,6 +1124,7 @@ class ProfileManager:
             self.profiles[name] = {}
             zvals = profile.getlists('points', seps=(',', '\n'), parser=float)
             self.profiles[name]['points'] = zvals
+            self.get_zvals = self.profiles[name]['points'][0][0]
             self.profiles[name]['mesh_params'] = params = \
                 collections.OrderedDict()
             for key, t in PROFILE_OPTIONS.items():

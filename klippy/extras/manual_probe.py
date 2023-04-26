@@ -11,6 +11,7 @@ class ManualProbe:
         # Register commands
         self.gcode = self.printer.lookup_object('gcode')
         self.gcode_move = self.printer.load_object(config, "gcode_move")
+        self.bed_mesh_bak = self.printer.load_object(config, "bed_mesh")
         self.gcode.register_command('MANUAL_PROBE', self.cmd_MANUAL_PROBE,
                                     desc=self.cmd_MANUAL_PROBE_help)
         zconfig = config.getsection('stepper_z')
@@ -44,7 +45,12 @@ class ManualProbe:
         if kin_pos is None:
             return
 #        z_pos = self.z_position_endstop - kin_pos[2]
-        z_pos = self.z_position_endstop
+        z_prode = self.bed_mesh_bak.get_probe_zvals()
+        z_pos = self.z_position_endstop + z_prode - kin_pos[2]
+#        self.gcode.respond_info("Z position is %.3f" % (z_prode,))
+#        self.gcode.respond_info("Z position1 is %.3f" % (self.z_position_endstop,))
+#        self.gcode.respond_info("Z position1 is %.3f" % (kin_pos[2],))       
+#        self.gcode.respond_info("Z position2 is %.3f" % (z_pos,))
         self.gcode.respond_info(
             "stepper_z: position_endstop: %.3f\n"
             "The SAVE_CONFIG command will update the printer config file\n"
